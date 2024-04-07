@@ -79,19 +79,43 @@ public class BlockChain {
     return this.last.block.getHash();
   }
 
+  /**
+   * needs to check: 1. hash validities; 2. transaction validity
+   */
   public boolean isValidBlockChain() {
-    int bal = this.first.block.getAmount();
-    Node<Block> cur = this.first.nextNode;
+    Node<Block> cur = this.first;
+    int bal = cur.block.getAmount();
+    int initial = bal;
     while(cur != null) {
-      bal += cur.block.getAmount();
-      if(bal < 0) {
+      // if bal < 0, alexis has negative balance
+      // if bal > initial, blake has negative balance
+      if(bal < 0 || bal > initial) {
         return false;
       }
-      // Add checks for validity like in append
+      // we are iterating through every node so we don't need to check prevHash.isValid()
+      if(!cur.block.getHash().isValid()) {
+        return false;
+      }
+      bal += cur.block.getAmount();
+      cur = cur.nextNode;
     }
+    // we need to check the last node's balance validity
+    if (bal < 0 || bal > initial) {
+      return false;
+    }
+    // else, it's valid
+    return true;
   }
 
   void printBalances(PrintWriter pen) {
-    // implement this
+    int Alexis = first.block.getAmount();
+    int initial = Alexis;
+    Node<Block> cur = first.nextNode;
+    
+    while (cur != null) {
+      Alexis += cur.block.getAmount();
+      cur = cur.nextNode;
+    }
+    pen.println("Alexis: " + Alexis + ", Blake: " + (initial - Alexis));
   }
 }
