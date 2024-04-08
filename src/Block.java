@@ -30,7 +30,7 @@ public class Block {
     this.prevHash = prevHash;
 
     // Mining:
-    curHash = mine(num, data, prevHash);
+    this.curHash = mine(num, data, prevHash);
   }
 
   /**
@@ -93,6 +93,7 @@ public class Block {
       tempHash = calculateHash(num, data, prevHash, randomNonce);
     } while (!tempHash.isValid());
 
+    this.nonce = randomNonce; 
     // loop ended, so it's valid hash.
     return tempHash;
   }
