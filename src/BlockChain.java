@@ -75,6 +75,10 @@ public class BlockChain {
     return false;
   }
 
+  /**
+   * gets the hash of the last block
+   * @return
+   */
   public Hash getHash() {
     return this.last.block.getHash();
   }
@@ -117,5 +121,16 @@ public class BlockChain {
       cur = cur.nextNode;
     }
     pen.println("Alexis: " + Alexis + ", Blake: " + (initial - Alexis));
+  }
+
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    Node<Block> cur = this.first;
+    while(cur != null) {
+      sb.append(cur.block.toString() + "\n");
+      cur = cur.nextNode;
+    }
+
+    return sb.toString();
   }
 }
