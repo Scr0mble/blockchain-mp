@@ -52,6 +52,14 @@ public class Block {
   // | Methods |
   // +---------+
 
+  /**
+   * Calculates the hash for the current block and returns it
+   * 
+   * @param num
+   * @param data
+   * @param prevHash
+   * @param nonce
+   */
   private Hash calculateHash(int num, int data, Hash prevHash, long nonce) {
     try {
       MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -82,6 +90,13 @@ public class Block {
     }
   }
 
+  /**
+   * performs the mining action and returns the hash for the current block in addition to updating it's nonce to match this hash
+   * 
+   * @param num
+   * @param data
+   * @param prevHash
+   */
   private Hash mine(int num, int data, Hash prevHash) {
     Random rd = new Random();
     Hash tempHash;
@@ -99,26 +114,45 @@ public class Block {
   }
 
   // GETTERs below:
+
+  /**
+   * Returns the value in num
+   */
   public int getNum() {
     return this.num;
   }
 
+  /**
+   * Returns the value in data
+   */
   public int getAmount() {
     return this.data;
   }
 
+  /**
+   * Returns the value in nonce
+   */
   public long getNonce() {
     return this.nonce;
   }
 
+  /**
+   * Returns the value in prevHash
+   */
   public Hash getPrevHash() {
     return this.prevHash;
   }
 
+  /**
+   * Returns the value in curHash
+   */
   public Hash getHash() {
     return this.curHash;
   }
 
+  /**
+   * Returns the the values stored in the fields of the current block represented as a string
+   */
   public String toString() {
     String blockString = "Block " + this.num + " (Amount: " + this.data + ", Nonce: " + this.nonce
         + ", prevHash: " + this.prevHash + ", hash: " + this.curHash + ")";
