@@ -48,12 +48,19 @@ public class BlockChain {
     return blk;
   }
 
+  /**
+   * Returns the size of the BlockChain
+   */
   public int getSize() {
     if (first == null)
       return 0;
     return last.block.getNum() - first.block.getNum() + 1;
   }
 
+  /**
+   *@param blk
+   * Returns nothing but appends blk onto the end of the BlockChain
+   */
   public void append(Block blk) throws IllegalArgumentException {
     if (!blk.getHash().isValid()) {
       throw new IllegalArgumentException("append failed because cur hash is invalid");
@@ -66,6 +73,10 @@ public class BlockChain {
     last = last.nextNode;
   }
 
+  /**
+   * Returns true if the last Block of the BlockChain is successfully removed, returns false otherwise
+   * The only instance where this should return false is when there is only one element in the BlockChain
+   */
   public boolean removeLast() {
     if (this.first != this.last) {
       Node<Block> cur = this.first;
@@ -90,6 +101,7 @@ public class BlockChain {
 
   /**
    * needs to check: 1. hash validities; 2. transaction validity
+   * Returns a boolean, true if the BlockChain is valid, false if the balance of an account exceeds the initial amount or goes below 0
    */
   public boolean isValidBlockChain() {
     Node<Block> cur = this.first;
@@ -122,6 +134,10 @@ public class BlockChain {
     return true;
   }
 
+  /**
+   *@param pen
+   * Returns nothing but prints the balances of the two accounts in the BlockChain
+   */
   void printBalances(PrintWriter pen) {
     int Alexis = first.block.getAmount();
     int initial = Alexis;
@@ -134,6 +150,9 @@ public class BlockChain {
     pen.println("Alexis: " + Alexis + ", Blake: " + (initial - Alexis));
   }
 
+  /**
+   * Returns a string that represents all the transactions in the BlockChain
+   */
   public String toString() {
     StringBuilder sb = new StringBuilder();
     Node<Block> cur = this.first;
