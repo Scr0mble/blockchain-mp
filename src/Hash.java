@@ -14,6 +14,11 @@ public class Hash {
 
   /* Methods */
 
+  /**
+   *
+   *precond: takes nothing
+   *postcond: returns the current Hash's curhash
+   */
   public byte[] getData() {
     return this.curhash;
   }
@@ -29,7 +34,12 @@ public class Hash {
       return false;
     }
   }
-
+  
+  /**
+   *
+   *precond: takes nothing
+   *postcond: returns a string that is the hexadecimal representation of this.curhash
+   */
   public String toString() {
     int[] temp = new int[this.curhash.length];
     String result = "";
@@ -43,6 +53,11 @@ public class Hash {
     return result;
   }
 
+  /**
+   *
+   *precond: takes an Object other
+   *postcond: returns a boolean #t if the object is equal to this.curhash and #f if it is not
+   */
   public boolean equals(Object other) {
     if (other instanceof Hash) {
       Hash otherHash = (Hash) other;
@@ -51,7 +66,6 @@ public class Hash {
       return false;
     }
   }
-
 }
 
 
